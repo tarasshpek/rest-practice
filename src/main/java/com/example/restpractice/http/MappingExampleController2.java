@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class XMappingExampleController {
+public class MappingExampleController2 {
 
     @GetMapping(path = "/mapping", params = "one")
     public String one() {
@@ -27,7 +27,7 @@ public class XMappingExampleController {
     }
 
     @GetMapping(path = "/mapping", headers = "myHeader")
-    public String three() {
+    public String header() {
         return "Request with header myHeader";
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,13 +32,20 @@ public class ProductController {
     }
 
     @GetMapping
-    public Page<Product> products(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public Iterable<Product> products() {
+        return productRepository.findAll();
     }
 
+//    @GetMapping
+//    public Page<Product> products(Pageable pageable) {
+//        return productRepository.findAll(pageable);
+//    }
+
     @GetMapping("/{id}")
-    public Optional<Product> product(@PathVariable Long id) {
-        return productRepository.findById(id);
+    public Product product(@PathVariable Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Product with id " + id + " is missed"));
     }
 
     @PostMapping
@@ -57,7 +65,7 @@ public class ProductController {
         return ResponseEntity.ok(saved);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
         if (!id.equals(product.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product id in body must be " + id);
@@ -68,6 +76,10 @@ public class ProductController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
+        /*
+        if (productRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id " + id + " is missed");
+        }*/
         productRepository.deleteById(id);
     }
 

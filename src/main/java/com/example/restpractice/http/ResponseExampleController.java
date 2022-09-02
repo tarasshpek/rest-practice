@@ -40,9 +40,14 @@ public class ResponseExampleController {
         return ResponseEntity.ok(product);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @GetMapping("/status-bad-request")
-    public void statusBadRequest() {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @GetMapping("/status-no-content")
+    public void statusNoContent() {
+    }
+
+    @GetMapping("/status-no-content-using-response-entity")
+    public ResponseEntity<Void> statusNoContentUsingEntity() {
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/response-headers")

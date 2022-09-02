@@ -3,30 +3,30 @@ package com.example.restpractice.http;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/one")
+//@RequestMapping("/one")
 public class MappingExampleController {
 
-    @GetMapping
+    @GetMapping("/one")
     public String get() {
         return "Mapped with @GetMapping";
     }
 
-    @PostMapping
+    @PostMapping("/one")
     public String post() {
         return "Mapped with @PostMapping";
     }
 
-    @PutMapping
+    @PutMapping("/one")
     public String put() {
         return "Mapped with @PutMapping";
     }
 
-    @PatchMapping
+    @PatchMapping("/one")
     public String patch() {
         return "Mapped with @PatchMapping";
     }
 
-    @DeleteMapping
+    @DeleteMapping("/one")
     public String delete() {
         return "Mapped with @DeleteMapping";
     }
